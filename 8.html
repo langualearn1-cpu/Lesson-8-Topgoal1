@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Vocabulary Adventure - Teacher Majed Al-Swaihri</title>
+    <!-- Tailwind CSS for rapid modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for playful and legible typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Pacifico&family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --paper-texture: #FDFCF4;
+            --wood-tone: #DFB384;
+            --wood-edge: #4A2F18;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #eef2f7 0%, #fef3c7 40%, #e0f2fe 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        .font-fredoka {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        .font-pacifico {
+            font-family: 'Pacifico', cursive;
+        }
+
+        .font-cairo {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Worksheet border matching the pastel colorful border in the original image */
+        .pastel-rainbow-border {
+            background: conic-gradient(
+                from 45deg,
+                #82B7DC 0deg 60deg,
+                #F7A8B8 60deg 120deg,
+                #FFE184 120deg 180deg,
+                #9ED6B8 180deg 240deg,
+                #C3A6DC 240deg 300deg,
+                #F9B895 300deg 360deg
+            );
+            padding: 12px;
+            border-radius: 36px;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+        }
+
+        .worksheet-canvas {
+            background-color: var(--paper-texture);
+            background-image: 
+                radial-gradient(#e4dfc5 1.2px, transparent 1.2px),
+                radial-gradient(#f0edd8 1.2px, var(--paper-texture) 1.2px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            border: 3.5px solid #6b6357;
+            border-radius: 28px;
+            position: relative;
+        }
+
+        /* Wooden hanging board for Teacher Majed Al-Swaihri */
+        .wooden-sign-hang {
+            position: relative;
+            transform: rotate(-4deg);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+        .wooden-sign-hang:hover {
+            transform: rotate(-1deg) scale(1.05);
+        }
+        .wooden-plank {
+            background: linear-gradient(180deg, #ecd1b3 0%, #d8ad80 50%, #c49666 100%);
+            border: 2.8px solid #4A2F18;
+            border-radius: 14px;
+            box-shadow: 2px 6px 0px rgba(74, 47, 24, 0.28);
+        }
+
+        /* 3D Title "Vocabulary" matching the original handwritten bubble style */
+        .fancy-vocab-title {
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(90deg, #38BDF8 0%, #60A5FA 45%, #818CF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 3px 0px #F472B6) drop-shadow(0px 5px 8px rgba(244, 114, 182, 0.4));
+        }
+
+        .vocab-card {
+            border-radius: 26px;
+            border-width: 3.5px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05), inset 0 2px 0 rgba(255, 255, 255, 0.9);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .vocab-card:hover {
+            transform: translateY(-4px) scale(1.015);
+            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.95);
+        }
+        .vocab-card.is-active-speaker {
+            transform: scale(1.025);
+            box-shadow: 0 0 0 5px #38BDF8, 0 18px 36px rgba(56, 189, 248, 0.35);
+            z-index: 20;
+        }
+
+        /* Synchronized character highlight */
+        .sync-char {
+            display: inline-block;
+            transition: all 0.15s ease;
+            border-radius: 6px;
+            padding: 0 1px;
+        }
+        .sync-char.highlight {
+            color: #0284C7 !important;
+            background-color: #BAE6FD;
+            transform: translateY(-5px) scale(1.22);
+            text-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+            padding: 0 4px;
+            z-index: 10;
+        }
+
+        /* Tile drag/click styles for spelling game */
+        .spelling-tile {
+            font-family: 'Fredoka', cursive;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.16);
+        }
+        .spelling-tile:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.16);
+        }
+        .spelling-tile:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.08);
+        }
+
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px) rotate(-2deg); }
+            40% { transform: translateX(8px) rotate(2deg); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+        .shake-box {
+            animation: shakeError 0.4s ease;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4); }
+            50% { transform: scale(1.04); box-shadow: 0 8px 24px rgba(56, 189, 248, 0.7); }
+        }
+        .pulse-speaker {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 120;
+        }
+    </style>
+</head>
+
+<body class="p-2 sm:p-4 md:p-6 flex flex-col items-center">
+
+    <!-- Confetti canvas for celebrations -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <div class="w-full max-w-5xl pastel-rainbow-border">
+        <div class="worksheet-canvas p-3 sm:p-6 md:p-8">
+
+            <!-- Hand-drawn background paper ornaments (stars, hearts, paper confetti) -->
+            <div class="pointer-events-none select-none absolute inset-0 overflow-hidden z-0 opacity-80">
+                <svg class="w-full h-full" viewBox="0 0 1000 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M740 35L746 47L760 49L750 58L752 72L740 65L728 72L730 58L720 49L734 47L740 35Z" fill="#FDE068" stroke="#444" stroke-width="2"/>
+                    <path d="M915 48L920 58L931 60L923 67L925 78L915 72L905 78L907 67L899 60L910 58L915 48Z" fill="#FDE068" stroke="#444" stroke-width="2"/>
+                    <path d="M225 182L231 194L244 196L234 205L236 218L225 212L214 218L216 205L206 196L219 194L225 182Z" fill="#FDE068" stroke="#444" stroke-width="2"/>
+                    <path d="M795 75C788 65 772 68 775 82C778 94 795 103 795 103C795 103 812 94 815 82C818 68 802 65 795 75Z" fill="#F696A8" stroke="#444" stroke-width="1.8"/>
+                    <path d="M550 120C544 112 532 114 534 125C536 135 550 142 550 142C550 142 564 135 566 125C568 114 556 112 550 120Z" fill="#F8AD9D" stroke="#444" stroke-width="1.8"/>
+                    <circle cx="952" cy="180" r="7" fill="#8CD4C6" stroke="#444" stroke-width="1.8"/>
+                    <circle cx="72" cy="150" r="5" fill="#FDE068" stroke="#444" stroke-width="1.8"/>
+                    <rect x="850" y="30" width="16" height="9" rx="2.5" transform="rotate(25 850 30)" fill="#8CD4C6" stroke="#444" stroke-width="1.8"/>
+                </svg>
+            </div>
+
+            <header class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b-2 border-dashed border-amber-300/80">
+                
+                <!-- Wooden Hanging Sign (Teacher Majed Al-Swaihri) on Top Left -->
+                <div class="wooden-sign-hang order-1" onclick="teacherEnglishGreeting()" title="Click to hear Teacher Majed introduce the lesson in English!">
+                    <!-- Hanging rope wires -->
+                    <svg class="w-32 h-7 mx-auto -mb-1 relative z-10" viewBox="0 0 160 36" fill="none">
+                        <line x1="80" y1="4" x2="22" y2="34" stroke="#5C3A1E" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="80" y1="4" x2="138" y2="34" stroke="#5C3A1E" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="80" cy="4" r="5" fill="#D1C4B0" stroke="#4A2F18" stroke-width="2"/>
+                    </svg>
+                    <div class="wooden-plank px-4 py-2 text-center">
+                        <div class="flex items-center justify-center gap-1.5 text-[11px] font-black text-[#361f10] uppercase tracking-wider">
+                            <span>★</span>
+                            <span class="font-cairo text-xs">المعلم: ماجد السويهري</span>
+                            <span>★</span>
+                        </div>
+                        <div class="text-sm font-extrabold text-[#231206] tracking-tight">
+                            Teacher Majed Al-Swaihri
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Title: Vocabulary + المفردات -->
+                <div class="text-center order-2 flex flex-col items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="fancy-vocab-title text-4xl sm:text-5xl md:text-6xl py-1 select-none">
+                            Vocabulary
+                        </span>
+                        <span class="font-cairo text-2xl sm:text-3xl font-black text-slate-800">
+                            المفردات
+                        </span>
+                    </div>
+                    <div class="inline-flex items-center gap-1.5 mt-1 bg-white/80 border border-slate-200 px-3 py-1 rounded-full text-xs font-semibold text-slate-600 shadow-sm">
+                        <span class="text-emerald-500">●</span>
+                        <span>100% English Immersion Audio • Natural Whole-Word Pronunciation</span>
+                    </div>
+                </div>
+
+                <!-- Score and Audio Rate Controls on the Right -->
+                <div class="flex items-center gap-2.5 order-3">
+                    <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl px-3.5 py-1.5 flex items-center gap-2 shadow-sm">
+                        <span class="text-2xl">⭐</span>
+                        <div>
+                            <div class="text-[10px] uppercase tracking-wider text-amber-700 font-bold">Stars</div>
+                            <div id="gameScore" class="text-lg font-black text-amber-900 leading-tight">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Speech speed toggle (Slow vs Normal) -->
+                    <button id="speedControlBtn" onclick="toggleAudioSpeed()" class="bg-white hover:bg-sky-50 border-2 border-sky-300 text-sky-900 px-3 py-2 rounded-2xl text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition">
+                        <span id="speedIcon" class="text-base">🐇</span>
+                        <span id="speedLabel">Normal Speed</span>
+                    </button>
+                </div>
+            </header>
+
+            <nav class="relative z-10 my-4 flex flex-wrap items-center justify-center gap-3 bg-white/80 p-2.5 rounded-2xl border border-slate-200 shadow-sm">
+                <button onclick="switchGameMode('board')" id="nav-board" class="mode-btn flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition bg-sky-500 text-white shadow">
+                    <span>📚</span>
+                    <span>1. Vocabulary Studio (لوحة الكلمات)</span>
+                </button>
+                <button onclick="switchGameMode('spelling')" id="nav-spelling" class="mode-btn flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition bg-slate-100 hover:bg-slate-200 text-slate-700">
+                    <span>🔤</span>
+                    <span>2. Word Unscramble (رتب الحروف)</span>
+                </button>
+            </nav>
+
+            <div id="karaokeBanner" class="relative z-10 mb-5 bg-white/95 border-2 border-sky-300 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div id="liveSpeakerIcon" class="w-12 h-12 rounded-2xl bg-sky-100 border-2 border-sky-400 flex items-center justify-center text-2xl shrink-0">
+                        🔊
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-slate-400 flex items-center gap-2 uppercase tracking-wider">
+                            <span>English Immersion Audio Studio</span>
+                            <span id="audioStatusPill" class="bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full text-[10px] font-extrabold">Ready to Speak</span>
+                        </div>
+                        <div class="flex flex-wrap items-baseline gap-2 mt-1">
+                            <div id="activeSpokenWord" class="font-fredoka text-2xl sm:text-3xl font-bold text-slate-900 tracking-wide">
+                                Tap any card!
+                            </div>
+                            <span id="activeMeaningBadge" class="hidden font-cairo text-sm font-bold bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-lg border border-amber-300">
+                            </span>
+                        </div>
+                        <div id="activeEnglishDefinition" class="text-xs sm:text-sm text-slate-600 font-medium mt-0.5">
+                            Listen to crystal-clear English pronunciation, spelling, and contextual definition.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Auto-tour sheet button (pure English walkthrough) -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <button id="autoplayBtn" onclick="toggleFullWorksheetTour()" class="bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm shadow flex items-center gap-2 transition">
+                        <span id="autoplayIcon">▶️</span>
+                        <span id="autoplayLabel">Listen to All 10 Words</span>
+                    </button>
+                </div>
+            </div>
+
+            <section id="mode-board" class="relative z-10">
+                <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated dynamically with exact pastel colors and original artwork -->
+                </div>
+            </section>
+
+            <section id="mode-spelling" class="relative z-10 hidden">
+                <div class="max-w-2xl mx-auto">
+                    <!-- Word progress indicator -->
+                    <div class="flex items-center justify-between bg-white/90 p-3 rounded-2xl border border-slate-200 mb-4 shadow-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white font-extrabold text-xs px-2.5 py-1 rounded-lg">Spelling Bee</span>
+                            <span id="spellingStepLabel" class="text-sm font-bold text-slate-700">Word 1 of 10</span>
+                        </div>
+                        <div id="spellingWordDots" class="flex items-center gap-1.5"></div>
+                    </div>
+
+                    <!-- Spelling Card Container -->
+                    <div id="spellingCardBox" class="vocab-card p-5 sm:p-6 transition-all">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div id="spellingArtworkSlot" class="w-20 h-20 sm:w-24 sm:h-24 bg-white/80 rounded-2xl p-2 flex items-center justify-center border border-white shrink-0 shadow-inner"></div>
+                                <div>
+                                    <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">English Definition</div>
+                                    <div id="spellingEnglishClue" class="text-base sm:text-lg font-bold text-slate-900 mb-1">
+                                        Exceptionally clever or smart.
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button onclick="playSpellingAudio(false)" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow">
+                                            <span>🔊</span>
+                                            <span>Pronounce Word</span>
+                                        </button>
+                                        <button onclick="playSpellingAudio(true)" class="bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-bold text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-sm">
+                                            <span>🐢</span>
+                                            <span>Slow Pronunciation</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Hint button -->
+                            <button onclick="giveSpellingHint()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-black px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow transition self-end sm:self-center">
+                                <span>💡</span>
+                                <span>Next Letter Hint</span>
+                            </button>
+                        </div>
+
+                        <!-- Target Slots -->
+                        <div class="mt-6">
+                            <div class="text-center text-xs font-bold text-slate-500 mb-2">
+                                Tap the letters below in the correct order to spell the word:
+                            </div>
+                            <div id="targetSlotContainer" class="flex flex-wrap items-center justify-center gap-2 min-h-[64px] p-3 bg-white/70 rounded-2xl border-2 border-dashed border-slate-400 shadow-inner">
+                            </div>
+                        </div>
+
+                        <!-- Shuffled Pool Tiles -->
+                        <div class="mt-4">
+                            <div id="poolTileContainer" class="flex flex-wrap items-center justify-center gap-2 p-2 min-h-[60px]">
+                            </div>
+                        </div>
+
+                        <!-- Success Banner -->
+                        <div id="spellingSuccessBanner" class="hidden mt-4 bg-emerald-500 text-white p-3.5 rounded-2xl shadow-lg flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">🎉</span>
+                                <div>
+                                    <div class="font-black text-sm">Brilliant Spelling!</div>
+                                    <div id="spellingSuccessWord" class="text-xs font-semibold text-emerald-100"></div>
+                                </div>
+                            </div>
+                            <button onclick="nextSpellingWord()" class="bg-white text-emerald-900 hover:bg-emerald-50 font-black px-4 py-1.5 rounded-xl text-xs shadow">
+                                Next Word ➔
+                            </button>
+                        </div>
+
+                        <!-- Navigation Footer -->
+                        <div class="mt-5 pt-3 border-t border-black/10 flex items-center justify-between text-xs">
+                            <button onclick="prevSpellingWord()" class="bg-white/80 hover:bg-white text-slate-700 font-bold px-3.5 py-1.5 rounded-xl border border-slate-300">
+                                ⬅ Prev
+                            </button>
+                            <button onclick="resetSpellingCurrent()" class="text-rose-600 hover:underline font-bold">
+                                Reset Letters
+                            </button>
+                            <button onclick="nextSpellingWord()" class="bg-white/80 hover:bg-white text-slate-700 font-bold px-3.5 py-1.5 rounded-xl border border-slate-300">
+                                Next ➔
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="relative z-10 mt-6 pt-3 border-t-2 border-dashed border-amber-300/70 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-bold text-slate-500">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                    <span>English Vocabulary Immersion • Supervised by Teacher Majed Al-Swaihri</span>
+                </div>
+                <div>
+                    <button onclick="resetAllScores()" class="text-rose-600 hover:underline">Reset Progress</button>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Authentic 10-Word Dataset based on Teacher Majed Al-Swaihri's Worksheet
+         * Strictly 100% English audio narration (Zero Arabic speech output)
+         */
+        const VOCABULARY = [
+            {
+                id: 'brilliant',
+                word: 'brilliant',
+                arabicLabel: 'ذكي',
+                definition: 'Exceptionally clever, gifted, or very smart.',
+                sentence: 'The scientist came up with a brilliant invention to save clean energy.',
+                blankSentence: 'The scientist came up with a ______ invention to save clean energy.',
+                bg: '#F0F9FF',
+                border: '#7DD3FC',
+                badgeBg: '#E0F2FE',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <g transform="translate(68, 6)">
+                        <line x1="20" y1="2" x2="20" y2="8" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="36" y1="10" x2="31" y2="14" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="4" y1="10" x2="9" y2="14" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M12 28 C12 18, 28 18, 28 28 C28 33, 24 35, 24 39 L16 39 C16 35, 12 33, 12 28 Z" fill="#FDE047" stroke="#D97706" stroke-width="2"/>
+                        <rect x="16" y="40" width="8" height="4" rx="1.5" fill="#94A3B8" stroke="#475569" stroke-width="1.5"/>
+                    </g>
+                    <path d="M28 112 L34 76 L72 76 L76 112 Z" fill="#334155" stroke="#1E293B" stroke-width="2.5"/>
+                    <path d="M68 82 L85 56 L77 51 L60 76 Z" fill="#334155" stroke="#1E293B" stroke-width="2"/>
+                    <circle cx="83" cy="50" r="6" fill="#FBBF94" stroke="#B45309" stroke-width="1.8"/>
+                    <polygon points="46,76 60,76 53,94" fill="#FFFFFF"/>
+                    <polygon points="51,78 55,78 56,93 53,97 50,93" fill="#38BDF8"/>
+                    <circle cx="52" cy="54" r="19" fill="#FBBF94" stroke="#78350F" stroke-width="2.2"/>
+                    <path d="M33 48 C32 32, 68 30, 71 46 C65 39, 42 39, 33 48 Z" fill="#0F172A"/>
+                    <circle cx="45" cy="53" r="2.4" fill="#0F172A"/>
+                    <circle cx="59" cy="53" r="2.4" fill="#0F172A"/>
+                    <path d="M45 62 Q52 68 59 62" fill="none" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>`
+            },
+            {
+                id: 'dangerous',
+                word: 'dangerous',
+                arabicLabel: 'خطير',
+                definition: 'Likely to cause harm, injury, or hazard.',
+                sentence: 'Walking along the edge of the steep cliff is very dangerous.',
+                blankSentence: 'Walking along the edge of the steep cliff is very ______.',
+                bg: '#FFF1F2',
+                border: '#FDA4AF',
+                badgeBg: '#FFE4E6',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <line x1="18" y1="45" x2="8" y2="40" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="14" y1="60" x2="4" y2="60" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="102" y1="45" x2="112" y2="40" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="106" y1="60" x2="116" y2="60" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M54 18 C57 12, 63 12, 66 18 L104 90 C107 96, 103 102, 96 102 L24 102 C17 102, 13 96, 16 90 Z" fill="#EF233C" stroke="#B91C1C" stroke-width="3"/>
+                    <rect x="55" y="40" width="10" height="34" rx="5" fill="#FFFFFF"/>
+                    <circle cx="60" cy="86" r="6" fill="#FFFFFF"/>
+                </svg>`
+            },
+            {
+                id: 'naughty',
+                word: 'Naughty',
+                arabicLabel: 'مشاغب',
+                definition: 'Mischievous or disobedient in a playful way.',
+                sentence: 'The naughty puppy hid everyone’s slippers under the big sofa.',
+                blankSentence: 'The ______ puppy hid everyone’s slippers under the big sofa.',
+                bg: '#FEF3C7',
+                border: '#FCD34D',
+                badgeBg: '#FDE68A',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <path d="M46 84 L38 112 M74 84 L82 112" stroke="#DC2626" stroke-width="8" stroke-linecap="round"/>
+                    <rect x="43" y="56" width="34" height="30" rx="8" fill="#FACC15" stroke="#CA8A04" stroke-width="2.2"/>
+                    <path d="M43 64 L24 48" stroke="#FBBF94" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M77 64 L96 48" stroke="#FBBF94" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="60" cy="38" r="18" fill="#FBBF94" stroke="#9A3412" stroke-width="2"/>
+                    <path d="M42 32 C42 16, 78 16, 78 32 C72 24, 48 24, 42 32 Z" fill="#9A3412"/>
+                    <path d="M49 35 L55 38 L49 41" fill="none" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="68" cy="37" r="2.6" fill="#1E293B"/>
+                    <path d="M51 45 Q60 53 69 45 Z" fill="#FFFFFF" stroke="#78350F" stroke-width="1.8"/>
+                    <path d="M57 48 Q60 56 64 48 Z" fill="#FB7185"/>
+                </svg>`
+            },
+            {
+                id: 'exciting',
+                word: 'Exciting',
+                arabicLabel: 'مثير',
+                definition: 'Causing great enthusiasm, thrill, and happiness.',
+                sentence: 'The rollercoaster ride was fast, thrilling, and extremely exciting!',
+                blankSentence: 'The rollercoaster ride was fast, thrilling, and extremely ______!',
+                bg: '#FEFCE8',
+                border: '#FDE047',
+                badgeBg: '#FEF08A',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <circle cx="60" cy="62" r="44" fill="#FDE047" stroke="#D97706" stroke-width="2.5"/>
+                    <path d="M32 66 Q60 100 88 66 Z" fill="#78350F" stroke="#451A03" stroke-width="2"/>
+                    <path d="M36 67 Q60 75 84 67 L81 74 Q60 80 39 74 Z" fill="#FFFFFF"/>
+                    <polygon points="40,22 45,35 58,36 48,45 51,58 40,51 29,58 32,45 22,36 35,35" fill="#FEF08A" stroke="#CA8A04" stroke-width="2"/>
+                    <polygon points="80,22 85,35 98,36 88,45 91,58 80,51 69,58 72,45 62,36 75,35" fill="#FEF08A" stroke="#CA8A04" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'terrible',
+                word: 'Terrible',
+                arabicLabel: 'سيئ / فظيع',
+                definition: 'Extremely bad, awful, or unpleasant.',
+                sentence: 'The strong storm caused terrible traffic on the highway.',
+                blankSentence: 'The strong storm caused ______ traffic on the highway.',
+                bg: '#FDF2F8',
+                border: '#F472B6',
+                badgeBg: '#FCE7F3',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <path d="M26 22 H94 C101 22 106 27 106 34 V76 C106 83 101 88 94 88 H72 L60 106 L48 88 H26 C19 88 14 83 14 76 V34 C14 27 19 22 26 22 Z" fill="#DC2626" stroke="#991B1B" stroke-width="3"/>
+                    <rect x="70" y="36" width="12" height="26" rx="4" fill="#FEE2E2"/>
+                    <path d="M66 36 H45 C40 36 37 40 38 45 L41 58 C42 62 45 64 50 64 H60 L57 76 C56 80 61 82 64 78 L70 62 V36 Z" fill="#FFFFFF"/>
+                </svg>`
+            },
+            {
+                id: 'afraid',
+                word: 'afraid',
+                arabicLabel: 'خائف',
+                definition: 'Feeling fear, scared, or frightened of something.',
+                sentence: 'Little Oliver is afraid of the dark thunder outside his room.',
+                blankSentence: 'Little Oliver is ______ of the dark thunder outside his room.',
+                bg: '#F0FDF4',
+                border: '#86EFAC',
+                badgeBg: '#DCFCE7',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <path d="M28 66 C20 40, 32 14, 60 14 C88 14, 100 40, 92 66 Z" fill="#EA580C"/>
+                    <path d="M26 112 C26 82, 94 82, 94 112 Z" fill="#1E40AF" stroke="#1E3A8A" stroke-width="2.2"/>
+                    <circle cx="60" cy="52" r="20" fill="#FDE2D2" stroke="#9A3412" stroke-width="1.8"/>
+                    <circle cx="52" cy="47" r="3.2" fill="#0F172A"/>
+                    <circle cx="68" cy="47" r="3.2" fill="#0F172A"/>
+                    <ellipse cx="60" cy="60" rx="5" ry="7" fill="#7F1D1D"/>
+                    <path d="M43 60 C38 52, 42 46, 46 54 L49 78" fill="#FDE2D2" stroke="#9A3412" stroke-width="2"/>
+                    <path d="M77 60 C82 52, 78 46, 74 54 L71 78" fill="#FDE2D2" stroke="#9A3412" stroke-width="2"/>
+                </svg>`
+            },
+            {
+                id: 'different',
+                word: 'Different',
+                arabicLabel: 'مختلف',
+                definition: 'Not the same; unique from others around it.',
+                sentence: 'Each snowflake has a totally different and beautiful shape.',
+                blankSentence: 'Each snowflake has a totally ______ and beautiful shape.',
+                bg: '#F0FDFE',
+                border: '#67E8F9',
+                badgeBg: '#CFFAFE',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <circle cx="20" cy="48" r="8" fill="#CBD5E1"/>
+                    <path d="M8 72 C8 60, 32 60, 32 72 Z" fill="#CBD5E1"/>
+                    <circle cx="96" cy="48" r="8" fill="#CBD5E1"/>
+                    <path d="M84 72 C84 60, 108 60, 108 72 Z" fill="#CBD5E1"/>
+                    <circle cx="56" cy="54" r="30" fill="#E0F2FE" stroke="#2563EB" stroke-width="7"/>
+                    <line x1="78" y1="76" x2="106" y2="104" stroke="#1D4ED8" stroke-width="10" stroke-linecap="round"/>
+                    <circle cx="56" cy="46" r="10" fill="#EF4444"/>
+                    <path d="M39 73 C39 58, 73 58, 73 73 Z" fill="#EF4444"/>
+                </svg>`
+            },
+            {
+                id: 'favorite',
+                word: 'Favorite',
+                arabicLabel: 'مفضل',
+                definition: 'Preferred above all others; liked the most.',
+                sentence: 'Vanilla ice cream with strawberries is my absolute favorite dessert.',
+                blankSentence: 'Vanilla ice cream with strawberries is my absolute ______ dessert.',
+                bg: '#EFF6FF',
+                border: '#93C5FD',
+                badgeBg: '#DBEAFE',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <circle cx="46" cy="46" r="28" fill="#FDE047" stroke="#CA8A04" stroke-width="2"/>
+                    <circle cx="37" cy="40" r="3.5" fill="#78350F"/>
+                    <circle cx="55" cy="40" r="3.5" fill="#78350F"/>
+                    <path d="M34 52 Q46 63 58 52" fill="none" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="88" cy="54" r="20" fill="#3B82F6" stroke="#1D4ED8" stroke-width="2"/>
+                    <path d="M83 52 L87 42 C89 42 91 44 90 48 H96 C98 48 99 50 98 53 L96 61 C95 63 93 64 90 64 H82 V52 Z" fill="#FFFFFF"/>
+                    <circle cx="62" cy="86" r="22" fill="#EF4444" stroke="#B91C1C" stroke-width="2"/>
+                    <polygon points="62,69 66,79 77,80 69,87 71,98 62,92 53,98 55,87 47,80 58,79" fill="#FACC15"/>
+                </svg>`
+            },
+            {
+                id: 'celebration',
+                word: 'Celebration',
+                arabicLabel: 'احتفال',
+                definition: 'A joyful party or social gathering honoring an event.',
+                sentence: 'The whole town joined the colorful holiday celebration with fireworks.',
+                blankSentence: 'The whole town joined the colorful holiday ______ with fireworks.',
+                bg: '#FFF1F2',
+                border: '#FB7185',
+                badgeBg: '#FFE4E6',
+                svg: `
+                <svg viewBox="0 0 160 90" class="w-full h-full">
+                    <path d="M4 12 Q80 44 156 12" fill="none" stroke="#475569" stroke-width="2"/>
+                    <polygon points="16,18 32,23 21,42" fill="#F43F5E"/>
+                    <polygon points="38,24 54,28 45,48" fill="#F59E0B"/>
+                    <polygon points="62,28 78,29 70,50" fill="#10B981"/>
+                    <polygon points="86,29 102,27 95,49" fill="#3B82F6"/>
+                    <polygon points="110,26 126,21 120,44" fill="#A855F7"/>
+                    <polygon points="132,20 146,14 142,36" fill="#EC4899"/>
+                    <path d="M8 46 Q80 78 152 42" fill="none" stroke="#475569" stroke-width="2"/>
+                    <polygon points="24,52 40,56 30,74" fill="#38BDF8"/>
+                    <polygon points="52,58 68,61 59,80" fill="#FBBF24"/>
+                    <polygon points="80,61 96,59 88,80" fill="#F43F5E"/>
+                    <polygon points="108,57 124,52 118,73" fill="#34D399"/>
+                </svg>`
+            },
+            {
+                id: 'surprised',
+                word: 'Surprised',
+                arabicLabel: 'متفاجئ',
+                definition: 'Feeling wonder or astonishment at something unexpected.',
+                sentence: 'She was pleasantly surprised to discover her surprise birthday cake.',
+                blankSentence: 'She was pleasantly ______ to discover her surprise birthday cake.',
+                bg: '#F7FEE7',
+                border: '#BEF264',
+                badgeBg: '#ECFCCB',
+                svg: `
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <circle cx="60" cy="60" r="44" fill="#FDE047" stroke="#CA8A04" stroke-width="2.5"/>
+                    <path d="M34 32 Q43 24 52 32" fill="none" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M68 32 Q77 24 86 32" fill="none" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+                    <ellipse cx="44" cy="45" rx="4.5" ry="6.5" fill="#451A03"/>
+                    <ellipse cx="76" cy="45" rx="4.5" ry="6.5" fill="#451A03"/>
+                    <ellipse cx="60" cy="76" rx="13" ry="18" fill="#451A03"/>
+                    <ellipse cx="60" cy="84" rx="8" ry="6" fill="#FB7185"/>
+                </svg>`
+            }
+        ];
+
+        let gameScore = 0;
+        let isSlowSpeed = false;
+        let activeSpeechTimers = [];
+        let isAutoTouring = false;
+        let autoTourIndex = 0;
+
+        // High-Quality Voice Engine State
+        let bestActiveVoice = null;
+        let availableEngVoices = [];
+
+        // Mode 2 State
+        let currentSpellingIdx = 0;
+        let spellingPlaced = [];
+        let spellingPool = [];
+
+        // Mode 3 State
+        let currentDetectiveIdx = 0;
+        let detectiveStreakCount = 0;
+        let detectiveAnswered = false;
+
+        // Mode 4 State
+        let currentSentenceIdx = 0;
+
+        // Web Audio Synthesizer (No external audio files)
+        let audioContext = null;
+        function getWebAudio() {
+            if (!audioContext) {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) audioContext = new AudioCtx();
+            }
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            return audioContext;
+        }
+
+        function playSynthEffect(type) {
+            try {
+                const ctx = getWebAudio();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+
+                if (type === 'tap') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(900, now + 0.06);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.06);
+                } else if (type === 'success') {
+                    const freqs = [523.25, 659.25, 783.99, 1046.50];
+                    freqs.forEach((f, i) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(f, now + i * 0.08);
+                        gain.gain.setValueAtTime(0.2, now + i * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.25);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + i * 0.08);
+                        osc.stop(now + i * 0.08 + 0.25);
+                    });
+                    fireConfetti();
+                } else if (type === 'error') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(240, now);
+                    osc.frequency.linearRampToValueAtTime(150, now + 0.2);
+                    gain.gain.setValueAtTime(0.18, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                }
+            } catch (e) {
+                // AudioContext not unlocked yet
+            }
+        }
+
+        function clearAllSpeech() {
+            activeSpeechTimers.forEach(t => clearTimeout(t));
+            activeSpeechTimers = [];
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            document.querySelectorAll('.vocab-card').forEach(c => c.classList.remove('is-active-speaker'));
+            document.querySelectorAll('.sync-char').forEach(el => el.classList.remove('highlight'));
+            const pill = document.getElementById('audioStatusPill');
+            if (pill) pill.textContent = 'Ready to Speak';
+        }
+
+        function createSpellingSpans(text, prefix) {
+            return text.split('').map((char, i) => 
+                `<span id="${prefix}-char-${i}" class="sync-char">${char}</span>`
+            ).join('');
+        }
+
+        /**
+         * Intelligent Voice Ranking & Scoring System
+         * Prioritizes high-definition Neural, Natural, Studio, and Google/Microsoft/Apple premium voices
+         */
+        function evaluateVoiceQuality(voice) {
+            let score = 0;
+            const name = voice.name.toLowerCase();
+            const lang = voice.lang.toLowerCase();
+
+            // English voices only
+            if (!lang.startsWith('en')) return -1000;
+
+            // Premium neural / natural indicators
+            if (name.includes('natural') || name.includes('neural') || name.includes('studio') || name.includes('journey')) score += 80;
+            if (name.includes('online')) score += 40;
+            if (name.includes('enhanced') || name.includes('premium')) score += 50;
+
+            // High-fidelity engine vendors
+            if (name.includes('google')) score += 60; // Google US English is ultra-clear
+            if (name.includes('microsoft')) score += 55; // Microsoft Jenny, Aria, Guy, etc.
+            if (name.includes('samantha') || name.includes('siri') || name.includes('alex') || name.includes('ava') || name.includes('oliver')) score += 45;
+
+            // Language dialect preference (Clear US or UK educational pronunciation)
+            if (lang === 'en-us') score += 25;
+            else if (lang === 'en-gb') score += 20;
+            else if (lang.startsWith('en')) score += 10;
+
+            // Deprecate robotic/legacy local synths
+            if (name.includes('espeak') || name.includes('desktop') || name.includes('compact')) score -= 50;
+
+            return score;
+        }
+
+        function initVoiceEngine() {
+            if (!('speechSynthesis' in window)) return;
+
+            const populate = () => {
+                const voices = window.speechSynthesis.getVoices();
+                if (!voices || voices.length === 0) return;
+
+                // Filter and sort English voices by natural quality
+                availableEngVoices = voices
+                    .filter(v => v.lang.toLowerCase().startsWith('en'))
+                    .sort((a, b) => evaluateVoiceQuality(b) - evaluateVoiceQuality(a));
+
+                if (availableEngVoices.length === 0) {
+                    availableEngVoices = voices;
+                }
+
+                // Default to the highest ranked natural voice
+                if (!bestActiveVoice || !availableEngVoices.includes(bestActiveVoice)) {
+                    bestActiveVoice = availableEngVoices[0];
+                }
+
+                // Populate UI Dropdown with clean readable names
+                const selector = document.getElementById('voiceSelector');
+                if (selector) {
+                    selector.innerHTML = availableEngVoices.map((v, i) => {
+                        let tag = 'HD';
+                        const n = v.name.toLowerCase();
+                        if (n.includes('natural') || n.includes('neural') || n.includes('studio')) tag = '🌟 Natural';
+                        else if (n.includes('google')) tag = '✨ Google';
+                        else if (n.includes('microsoft')) tag = '💎 Microsoft';
+                        else if (n.includes('apple') || n.includes('samantha') || n.includes('siri')) tag = '🍎 Apple';
+
+                        const cleanName = v.name.replace(/Microsoft|Google|Apple|English|United States|Desktop|Mobile/gi, '').trim() || v.name;
+                        return `<option value="${v.name}" ${v.name === bestActiveVoice.name ? 'selected' : ''}>${tag} - ${cleanName} (${v.lang})</option>`;
+                    }).join('');
+                }
+            };
+
+            populate();
+            if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                window.speechSynthesis.onvoiceschanged = populate;
+            }
+        }
+
+        function onVoiceSelectionChange() {
+            const selector = document.getElementById('voiceSelector');
+            const chosenName = selector.value;
+            const matched = availableEngVoices.find(v => v.name === chosenName);
+            if (matched) {
+                bestActiveVoice = matched;
+                playSynthEffect('tap');
+                testActiveVoice();
+            }
+        }
+
+        function testActiveVoice() {
+            clearAllSpeech();
+            speakEnglishText("Brilliant pronunciation! Let's explore vocabulary together with Teacher Majed.", 1.0);
+        }
+
+        /**
+         * Strictly English Speech Synthesis Helper
+         * Configured with optimal pitch, crisp speed, and premium active voice
+         */
+        function speakEnglishText(text, rateModifier = 1.0, onEnd = null) {
+            if (!('speechSynthesis' in window)) {
+                if (typeof onEnd === 'function') onEnd();
+                return;
+            }
+            try {
+                // Cancel any pending stuck utterances
+                window.speechSynthesis.cancel();
+
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = bestActiveVoice ? bestActiveVoice.lang : 'en-US';
+
+                if (bestActiveVoice) {
+                    utter.voice = bestActiveVoice;
+                }
+
+                // Natural, warm pitch and clear tempo
+                const baseRate = isSlowSpeed ? 0.70 : 0.92;
+                utter.rate = baseRate * rateModifier;
+                utter.pitch = 1.0; // Natural pitch (prevents squeaky/robotic tone)
+                utter.volume = 1.0;
+
+                if (typeof onEnd === 'function') {
+                    utter.onend = onEnd;
+                    utter.onerror = onEnd;
+                }
+
+                // Chrome/Safari suspension safeguard
+                if (window.speechSynthesis.paused) {
+                    window.speechSynthesis.resume();
+                }
+
+                window.speechSynthesis.speak(utter);
+            } catch (err) {
+                if (typeof onEnd === 'function') onEnd();
+            }
+        }
+
+        /**
+         * Pure English Natural Pronunciation
+         * Whole-word natural pronunciation with synchronized visual highlighting wave
+         */
+        function playSynchronizedWordAudio(itemId, mode = 'word', onComplete = null) {
+            clearAllSpeech();
+            const item = VOCABULARY.find(v => v.id === itemId);
+            if (!item) return;
+
+            const card = document.getElementById(`board-card-${item.id}`);
+            if (card) card.classList.add('is-active-speaker');
+
+            const liveWord = document.getElementById('activeSpokenWord');
+            const liveMeaningBadge = document.getElementById('activeMeaningBadge');
+            const liveDef = document.getElementById('activeEnglishDefinition');
+            const statusPill = document.getElementById('audioStatusPill');
+
+            liveWord.innerHTML = createSpellingSpans(item.word, 'banner');
+            liveMeaningBadge.classList.remove('hidden');
+            liveMeaningBadge.textContent = item.arabicLabel;
+            liveDef.innerHTML = `<span class="font-bold text-slate-800">English Definition:</span> ${item.definition}`;
+
+            const chars = item.word.split('');
+
+            if (mode === 'spelling') {
+                statusPill.textContent = 'Spelling Letter by Letter...';
+                let delay = 0;
+                const letterDelay = isSlowSpeed ? 620 : 450;
+
+                chars.forEach((c, idx) => {
+                    const t = setTimeout(() => {
+                        document.querySelectorAll('.sync-char').forEach(el => el.classList.remove('highlight'));
+                        const c1 = document.getElementById(`board-${item.id}-char-${idx}`);
+                        const c2 = document.getElementById(`banner-char-${idx}`);
+                        if (c1) c1.classList.add('highlight');
+                        if (c2) c2.classList.add('highlight');
+
+                        speakEnglishText(c.toUpperCase(), 1.0);
+                    }, delay);
+                    activeSpeechTimers.push(t);
+                    delay += letterDelay;
+                });
+
+                // Follow up by pronouncing the complete word in English
+                const fullWordT = setTimeout(() => {
+                    chars.forEach((_, idx) => {
+                        const c1 = document.getElementById(`board-${item.id}-char-${idx}`);
+                        const c2 = document.getElementById(`banner-char-${idx}`);
+                        if (c1) c1.classList.add('highlight');
+                        if (c2) c2.classList.add('highlight');
+                    });
+                    speakEnglishText(item.word, 0.9, () => {
+                        finishSpeechActive(item.id, onComplete);
+                    });
+                }, delay + 100);
+                activeSpeechTimers.push(fullWordT);
+
+            } else if (mode === 'definition') {
+                statusPill.textContent = 'Reading English Definition...';
+                speakEnglishText(`${item.word}. ${item.definition}`, 0.95, () => {
+                    finishSpeechActive(item.id, onComplete);
+                });
+            } else if (mode === 'sentence') {
+                statusPill.textContent = 'Reading Context Sentence...';
+                speakEnglishText(item.sentence, 0.95, () => {
+                    finishSpeechActive(item.id, onComplete);
+                });
+            } else {
+                // Natural word pronunciation with synchronized wave
+                statusPill.textContent = 'Speaking Word...';
+                speakEnglishText(item.word, 0.95, () => {
+                    finishSpeechActive(item.id, onComplete);
+                });
+
+                const totalDuration = isSlowSpeed ? 800 : 550;
+                const charInterval = totalDuration / chars.length;
+
+                chars.forEach((_, idx) => {
+                    const t = setTimeout(() => {
+                        const c1 = document.getElementById(`board-${item.id}-char-${idx}`);
+                        const c2 = document.getElementById(`banner-char-${idx}`);
+                        if (c1) c1.classList.add('highlight');
+                        if (c2) c2.classList.add('highlight');
+                    }, idx * charInterval);
+                    activeSpeechTimers.push(t);
+                });
+            }
+        }
+
+        function finishSpeechActive(itemId, callback) {
+            document.querySelectorAll('.sync-char').forEach(el => el.classList.remove('highlight'));
+            const card = document.getElementById(`board-card-${itemId}`);
+            if (card) card.classList.remove('is-active-speaker');
+            document.getElementById('audioStatusPill').textContent = 'Ready to Speak';
+            if (typeof callback === 'function') callback();
+        }
+
+        function teacherEnglishGreeting() {
+            clearAllSpeech();
+            playSynthEffect('tap');
+            document.getElementById('activeSpokenWord').textContent = 'Teacher: Majed Al-Swaihri';
+            document.getElementById('activeMeaningBadge').classList.add('hidden');
+            document.getElementById('activeEnglishDefinition').textContent = 'Welcome! Let’s explore these ten exciting English words together!';
+            speakEnglishText("Hello students! Welcome to our English vocabulary adventure with Teacher Majed Al-Swaihri. Click any word to listen and practice!");
+        }
+
+        function toggleAudioSpeed() {
+            isSlowSpeed = !isSlowSpeed;
+            document.getElementById('speedIcon').textContent = isSlowSpeed ? '🐢' : '🐇';
+            document.getElementById('speedLabel').textContent = isSlowSpeed ? 'Slow Audio (0.7x)' : 'Normal Speed (1.0x)';
+            playSynthEffect('tap');
+        }
+
+        /**
+         * Pure English Natural Pronunciation
+         * No letter-by-letter reciting: whole words and sentences only
+         */
+        function playSynchronizedWordAudio(itemId, mode = 'word', onComplete = null) {
+            clearAllSpeech();
+            const item = VOCABULARY.find(v => v.id === itemId);
+            if (!item) return;
+
+            const card = document.getElementById(`board-card-${item.id}`);
+            if (card) card.classList.add('is-active-speaker');
+
+            const liveWord = document.getElementById('activeSpokenWord');
+            const liveMeaningBadge = document.getElementById('activeMeaningBadge');
+            const liveDef = document.getElementById('activeEnglishDefinition');
+            const statusPill = document.getElementById('audioStatusPill');
+
+            liveWord.innerHTML = createSpellingSpans(item.word, 'banner');
+            liveMeaningBadge.classList.remove('hidden');
+            liveMeaningBadge.textContent = item.arabicLabel;
+            liveDef.innerHTML = `<span class="font-bold text-slate-800">English Definition:</span> ${item.definition}`;
+
+            const chars = item.word.split('');
+
+            if (mode === 'definition') {
+                statusPill.textContent = 'Reading English Definition...';
+                speakEnglishText(`${item.word}. ${item.definition}`, 0.95, () => {
+                    finishSpeechActive(item.id, onComplete);
+                });
+            } else if (mode === 'sentence') {
+                statusPill.textContent = 'Reading Context Sentence...';
+                speakEnglishText(item.sentence, 0.95, () => {
+                    finishSpeechActive(item.id, onComplete);
+                });
+            } else {
+                // Whole-word natural pronunciation (Normal or Slow)
+                const isSlow = mode === 'slow' || isSlowSpeed;
+                statusPill.textContent = isSlow ? 'Pronouncing Slowly...' : 'Pronouncing Word...';
+                
+                const speechRate = isSlow ? 0.65 : 0.95;
+                speakEnglishText(item.word, speechRate, () => {
+                    finishSpeechActive(item.id, onComplete);
+                });
+
+                // Smooth visual highlight wave across the letters during speech
+                const totalDuration = isSlow ? 1100 : 700;
+                const charInterval = totalDuration / chars.length;
+
+                chars.forEach((_, idx) => {
+                    const t = setTimeout(() => {
+                        const c1 = document.getElementById(`board-${item.id}-char-${idx}`);
+                        const c2 = document.getElementById(`banner-char-${idx}`);
+                        if (c1) c1.classList.add('highlight');
+                        if (c2) c2.classList.add('highlight');
+                    }, idx * charInterval);
+                    activeSpeechTimers.push(t);
+                });
+            }
+        }
+
+        function finishSpeechActive(itemId, callback) {
+            document.querySelectorAll('.sync-char').forEach(el => el.classList.remove('highlight'));
+            const card = document.getElementById(`board-card-${itemId}`);
+            if (card) card.classList.remove('is-active-speaker');
+            document.getElementById('audioStatusPill').textContent = 'Ready to Speak';
+            if (typeof callback === 'function') callback();
+        }
+
+        function renderVocabularyBoard() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = VOCABULARY.map(item => {
+                const isCelebration = item.id === 'celebration';
+                return `
+                <div id="board-card-${item.id}"
+                     style="background-color: ${item.bg}; border-color: ${item.border};"
+                     class="vocab-card p-4 sm:p-5 flex flex-col justify-between cursor-pointer group"
+                     onclick="handleBoardCardClick('${item.id}')">
+                    
+                    ${isCelebration ? `
+                        <div class="w-full h-12 -mt-2 mb-1 pointer-events-none">
+                            ${item.svg}
+                        </div>
+                    ` : ''}
+
+                    <div class="flex items-center justify-between gap-3">
+                        <!-- Left: English word and Arabic reference subtitle -->
+                        <div class="flex-1">
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="font-fredoka text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                                    ${createSpellingSpans(item.word, `board-${item.id}`)}
+                                </span>
+                                <!-- Bilingual visual tag from the worksheet -->
+                                <span class="font-cairo text-lg sm:text-xl font-bold text-slate-700 bg-white/70 px-2 py-0.5 rounded-lg border border-black/5" dir="rtl">
+                                    ${item.arabicLabel}
+                                </span>
+                            </div>
+
+                            <!-- Concise definition snippet -->
+                            <p class="text-xs sm:text-sm text-slate-600 font-semibold mt-1.5 leading-snug">
+                                ${item.definition}
+                            </p>
+                        </div>
+
+                        <!-- Right: Exact artwork from the original image -->
+                        ${!isCelebration ? `
+                            <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                                ${item.svg}
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <!-- Action buttons strictly in English -->
+                    <div class="mt-3 pt-2.5 border-t border-black/10 flex flex-wrap items-center justify-between gap-1.5" onclick="event.stopPropagation()">
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="playSynchronizedWordAudio('${item.id}', 'word')"
+                                    class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-2.5 py-1.5 rounded-xl flex items-center gap-1 shadow-sm transition">
+                                <span>🔊</span>
+                                <span>Speak</span>
+                            </button>
+                            <button onclick="playSynchronizedWordAudio('${item.id}', 'slow')"
+                                    class="bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 text-xs font-bold px-2 py-1.5 rounded-xl flex items-center gap-1 shadow-sm transition" title="Slow clear pronunciation">
+                                <span>🐢</span>
+                                <span>Slow</span>
+                            </button>
+                            <button onclick="playSynchronizedWordAudio('${item.id}', 'sentence')"
+                                    class="bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 text-xs font-bold px-2 py-1.5 rounded-xl flex items-center gap-1 shadow-sm transition" title="Listen to example sentence">
+                                <span>💬</span>
+                                <span>Sentence</span>
+                            </button>
+                        </div>
+
+                        <!-- Jump to Spelling Bee mode -->
+                        <button onclick="launchSpellingForWord('${item.id}')"
+                                style="background-color: ${item.badgeBg};"
+                                class="text-slate-900 hover:brightness-95 text-xs font-black px-2.5 py-1.5 rounded-xl border border-black/10 flex items-center gap-1 transition">
+                            <span>🧩</span>
+                            <span>Arrange</span>
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function handleBoardCardClick(itemId) {
+            addScore(2);
+            playSynchronizedWordAudio(itemId, 'word');
+        }
+
+        function toggleFullWorksheetTour() {
+            if (isAutoTouring) {
+                stopFullWorksheetTour();
+                return;
+            }
+            switchGameMode('board');
+            isAutoTouring = true;
+            autoTourIndex = 0;
+            document.getElementById('autoplayIcon').textContent = '⏹️';
+            document.getElementById('autoplayLabel').textContent = 'Stop Tour';
+            runNextTourStep();
+        }
+
+        function stopFullWorksheetTour() {
+            isAutoTouring = false;
+            clearAllSpeech();
+            document.getElementById('autoplayIcon').textContent = '▶️';
+            document.getElementById('autoplayLabel').textContent = 'Listen to All 10 Words';
+        }
+
+        function runNextTourStep() {
+            if (!isAutoTouring) return;
+            if (autoTourIndex >= VOCABULARY.length) {
+                stopFullWorksheetTour();
+                playSynthEffect('success');
+                speakEnglishText("Great job! You have explored all ten vocabulary words with Teacher Majed!");
+                return;
+            }
+            const item = VOCABULARY[autoTourIndex];
+            const card = document.getElementById(`board-card-${item.id}`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            playSynchronizedWordAudio(item.id, 'word', () => {
+                if (!isAutoTouring) return;
+                autoTourIndex++;
+                const pauseT = setTimeout(runNextTourStep, 700);
+                activeSpeechTimers.push(pauseT);
+            });
+        }
+
+        function launchSpellingForWord(itemId) {
+            const idx = VOCABULARY.findIndex(v => v.id === itemId);
+            if (idx !== -1) {
+                currentSpellingIdx = idx;
+                switchGameMode('spelling');
+            }
+        }
+
+        function loadSpellingChallenge(index) {
+            currentSpellingIdx = (index + VOCABULARY.length) % VOCABULARY.length;
+            const item = VOCABULARY[currentSpellingIdx];
+
+            const box = document.getElementById('spellingCardBox');
+            box.style.backgroundColor = item.bg;
+            box.style.borderColor = item.border;
+
+            document.getElementById('spellingStepLabel').textContent = `Word ${currentSpellingIdx + 1} of ${VOCABULARY.length}`;
+            document.getElementById('spellingArtworkSlot').innerHTML = item.svg;
+            document.getElementById('spellingEnglishClue').textContent = item.definition;
+            document.getElementById('spellingSuccessBanner').classList.add('hidden');
+
+            // Render navigation dots
+            const dots = document.getElementById('spellingWordDots');
+            dots.innerHTML = VOCABULARY.map((v, i) => {
+                const isCurrent = i === currentSpellingIdx;
+                return `<button onclick="loadSpellingChallenge(${i})" class="w-6 h-6 rounded-full text-[11px] font-black transition flex items-center justify-center border ${
+                    isCurrent ? 'bg-indigo-600 text-white border-slate-900 scale-110' : 'bg-slate-100 text-slate-600 border-slate-300'
+                }">${i + 1}</button>`;
+            }).join('');
+
+            const letters = item.word.split('');
+            spellingPlaced = new Array(letters.length).fill(null);
+
+            // Shuffling pool tiles
+            let indices = letters.map((_, i) => i);
+            for (let i = indices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [indices[i], indices[j]] = [indices[j], indices[i]];
+            }
+            if (indices.every((val, idx) => val === idx) && indices.length > 1) {
+                [indices[0], indices[1]] = [indices[1], indices[0]];
+            }
+
+            spellingPool = indices.map((origIdx, poolIdx) => ({
+                id: poolIdx,
+                char: letters[origIdx],
+                used: false
+            }));
+
+            renderSpellingSlotsAndTiles();
+            playSpellingAudio(false);
+        }
+
+        function renderSpellingSlotsAndTiles() {
+            const item = VOCABULARY[currentSpellingIdx];
+            const letters = item.word.split('');
+
+            // Target Slots
+            const slotsBox = document.getElementById('targetSlotContainer');
+            slotsBox.innerHTML = letters.map((_, slotIdx) => {
+                const placed = spellingPlaced[slotIdx];
+                if (placed) {
+                    return `
+                    <button onclick="unplaceSpellingLetter(${slotIdx})"
+                            id="target-slot-${slotIdx}"
+                            class="spelling-tile w-10 h-12 sm:w-12 sm:h-14 rounded-2xl bg-slate-900 text-white text-2xl sm:text-3xl font-bold flex items-center justify-center shadow hover:bg-rose-600 transition"
+                            title="Click to remove">
+                        ${placed.char}
+                    </button>`;
+                } else {
+                    return `
+                    <div id="target-slot-${slotIdx}"
+                         class="w-10 h-12 sm:w-12 sm:h-14 rounded-2xl bg-white/80 border-2 border-dashed border-slate-400 text-slate-300 flex items-center justify-center">
+                    </div>`;
+                }
+            }).join('');
+
+            // Pool Buttons
+            const poolBox = document.getElementById('poolTileContainer');
+            poolBox.innerHTML = spellingPool.map(tile => `
+                <button onclick="pickSpellingTile(${tile.id})"
+                        ${tile.used ? 'disabled' : ''}
+                        class="spelling-tile w-11 h-12 sm:w-13 sm:h-14 rounded-2xl text-2xl sm:text-3xl font-bold border-2 ${
+                            tile.used 
+                            ? 'bg-slate-200/50 text-slate-300 border-slate-200 cursor-not-allowed opacity-40 shadow-none'
+                            : 'bg-white hover:bg-amber-50 text-slate-900 border-slate-800'
+                        }">
+                    ${tile.char}
+                </button>
+            `).join('');
+        }
+
+        function pickSpellingTile(tileId) {
+            const item = VOCABULARY[currentSpellingIdx];
+            const letters = item.word.split('');
+            const emptyIdx = spellingPlaced.findIndex(s => s === null);
+            if (emptyIdx === -1) return;
+
+            const tile = spellingPool.find(t => t.id === tileId);
+            if (!tile || tile.used) return;
+
+            const expectedChar = letters[emptyIdx];
+            if (tile.char.toLowerCase() === expectedChar.toLowerCase()) {
+                tile.used = true;
+                spellingPlaced[emptyIdx] = { id: tile.id, char: expectedChar };
+                playSynthEffect('tap'); // Pleasant UI sound without reciting the letter
+                renderSpellingSlotsAndTiles();
+
+                if (spellingPlaced.every(s => s !== null)) {
+                    finishSpellingWord();
+                }
+            } else {
+                playSynthEffect('error');
+                const slot = document.getElementById(`target-slot-${emptyIdx}`);
+                if (slot) {
+                    slot.classList.add('shake-box', 'border-rose-500', 'bg-rose-50');
+                    setTimeout(() => slot.classList.remove('shake-box', 'border-rose-500', 'bg-rose-50'), 400);
+                }
+            }
+        }
+
+        function unplaceSpellingLetter(slotIdx) {
+            const placed = spellingPlaced[slotIdx];
+            if (!placed) return;
+            const tile = spellingPool.find(t => t.id === placed.id);
+            if (tile) tile.used = false;
+            spellingPlaced[slotIdx] = null;
+            playSynthEffect('tap');
+            renderSpellingSlotsAndTiles();
+        }
+
+        function giveSpellingHint() {
+            const item = VOCABULARY[currentSpellingIdx];
+            const letters = item.word.split('');
+            const emptyIdx = spellingPlaced.findIndex(s => s === null);
+            if (emptyIdx === -1) return;
+
+            const neededChar = letters[emptyIdx];
+            const match = spellingPool.find(t => !t.used && t.char.toLowerCase() === neededChar.toLowerCase());
+            if (match) {
+                pickSpellingTile(match.id);
+            }
+        }
+
+        function finishSpellingWord() {
+            const item = VOCABULARY[currentSpellingIdx];
+            playSynthEffect('success');
+            addScore(15);
+
+            const banner = document.getElementById('spellingSuccessBanner');
+            banner.classList.remove('hidden');
+            document.getElementById('spellingSuccessWord').textContent = `"${item.word}" - ${item.definition}`;
+
+            speakEnglishText(`Awesome! ${item.word}!`);
+        }
+
+        function playSpellingAudio(isSlow) {
+            const item = VOCABULARY[currentSpellingIdx];
+            playSynchronizedWordAudio(item.id, isSlow ? 'slow' : 'word');
+        }
+
+        function resetSpellingCurrent() {
+            loadSpellingChallenge(currentSpellingIdx);
+        }
+
+        function nextSpellingWord() {
+            loadSpellingChallenge(currentSpellingIdx + 1);
+        }
+
+        function prevSpellingWord() {
+            loadSpellingChallenge(currentSpellingIdx - 1);
+        }
+
+        function switchGameMode(mode) {
+            if (mode !== 'board' && isAutoTouring) {
+                stopFullWorksheetTour();
+            }
+            clearAllSpeech();
+
+            const modes = ['board', 'spelling'];
+            modes.forEach(m => {
+                const sec = document.getElementById(`mode-${m}`);
+                const nav = document.getElementById(`nav-${m}`);
+                if (!sec || !nav) return;
+                if (m === mode) {
+                    sec.classList.remove('hidden');
+                    nav.className = 'mode-btn flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition bg-sky-500 text-white shadow';
+                } else {
+                    sec.classList.add('hidden');
+                    nav.className = 'mode-btn flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition bg-slate-100 hover:bg-slate-200 text-slate-700';
+                }
+            });
+
+            if (mode === 'spelling') {
+                loadSpellingChallenge(currentSpellingIdx);
+            }
+        }
+
+        function addScore(points) {
+            gameScore += points;
+            const el = document.getElementById('gameScore');
+            el.textContent = gameScore;
+            el.classList.add('scale-125', 'text-amber-500');
+            setTimeout(() => el.classList.remove('scale-125', 'text-amber-500'), 250);
+        }
+
+        function resetAllScores() {
+            gameScore = 0;
+            document.getElementById('gameScore').textContent = '0';
+            playSynthEffect('tap');
+        }
+
+        let confettiParticles = [];
+        let confettiAnimId = null;
+
+        function fireConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            if (!canvas) return;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d');
+
+            const colors = ['#F59E0B', '#EF4444', '#10B981', '#3B82F6', '#8B5CF6', '#EC4899', '#FDE047'];
+            confettiParticles = [];
+
+            for (let i = 0; i < 90; i++) {
+                confettiParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: -20 - Math.random() * 50,
+                    size: 7 + Math.random() * 8,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    vx: -2 + Math.random() * 4,
+                    vy: 3 + Math.random() * 5,
+                    rot: Math.random() * 360,
+                    vrot: -4 + Math.random() * 8,
+                    opacity: 1
+                });
+            }
+
+            if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
+
+            function step() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+
+                confettiParticles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.rot += p.vrot;
+                    if (p.y > canvas.height * 0.7) {
+                        p.opacity -= 0.02;
+                    }
+
+                    if (p.opacity > 0 && p.y < canvas.height + 40) {
+                        alive = true;
+                        ctx.save();
+                        ctx.globalAlpha = Math.max(0, p.opacity);
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate((p.rot * Math.PI) / 180);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                        ctx.restore();
+                    }
+                });
+
+                if (alive) {
+                    confettiAnimId = requestAnimationFrame(step);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            step();
+        }
+
+        // Support physical keyboard typing during Spelling Bee
+        window.addEventListener('keydown', (e) => {
+            const spellingSec = document.getElementById('mode-spelling');
+            if (spellingSec.classList.contains('hidden')) return;
+
+            if (e.key === 'Backspace') {
+                for (let i = spellingPlaced.length - 1; i >= 0; i--) {
+                    if (spellingPlaced[i] !== null) {
+                        unplaceSpellingLetter(i);
+                        break;
+                    }
+                }
+                return;
+            }
+
+            if (/^[a-zA-Z]$/.test(e.key)) {
+                const match = spellingPool.find(t => !t.used && t.char.toLowerCase() === e.key.toLowerCase());
+                if (match) {
+                    pickSpellingTile(match.id);
+                }
+            }
+        });
+
+        // Initialize application on load
+        window.onload = function () {
+            initVoiceEngine();
+            renderVocabularyBoard();
+        };
+    </script>
+</body>
+</html>
